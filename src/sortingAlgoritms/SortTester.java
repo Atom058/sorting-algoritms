@@ -1,31 +1,60 @@
 package sortingAlgoritms;
+import java.util.Arrays;
 import java.util.Random;
 
 
 
 public class SortTester {
 	
-	/**
-	 * Here, you can change which sort to use. Fairly simple right now...
-	 * @param list - the list to be sorted
-	 */
-	private static void sort(int[] list){
-		//QuickSort.sort(list);
-		MergeSort.sort(list);
-	}
-
+	private static Random rand;
+	
 	public static void main(String[] args){
-		Random rand = new Random();
-		int[] testList = new int[10];
-		for(int i=0;i<testList.length;i++){
-			testList[i] = rand.nextInt(10);
-		}
-		System.out.println(arrayString(testList));
-		sort(testList);
-		System.out.println(arrayString(testList));
+		rand = new Random();
+
+		generateTest(10);
+		generateTest(100);
+		generateTest(1000);
+		generateTest(10000);
+		generateTest(100000);
 	}
 	
-	private static String arrayString(int[] list){
+	private static void generateTest(int length){
+		int[] list = generateList(length);
+		
+		System.out.println(length + " random numbers");
+		arrayToString(list);
+		
+		System.out.print("Bubble sort: ");
+		int[] testList = Arrays.copyOf(list, list.length);
+		long time = System.currentTimeMillis();
+		BubbleSort.sort(testList);
+		time = System.currentTimeMillis() - time;
+		System.out.println("Duration: " + time);
+		
+		System.out.print("Merge sort: ");
+		testList = Arrays.copyOf(list, list.length);
+		time = System.currentTimeMillis();
+		MergeSort.sort(testList);
+		time = System.currentTimeMillis() - time;
+		System.out.println("Duration: " + time);
+		
+		System.out.print("Quick sort: ");
+		testList = Arrays.copyOf(list, list.length);
+		time = System.currentTimeMillis();
+		QuickSort.sort(testList);
+		time = System.currentTimeMillis() - time;
+		System.out.println("Duration: " + time);
+	}
+	
+	private static int[] generateList(int length){
+		int[] list = new int[length];
+		for(int i=0; i< list.length; i++){
+			list[i] = rand.nextInt(10);
+		}
+		return list;
+	}
+	
+	private static String arrayToString(int[] list){
 		StringBuilder s = new StringBuilder();
 		for(int i=0; i<list.length; i++){
 			s.append(list[i]);
