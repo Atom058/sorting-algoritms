@@ -3,7 +3,16 @@ import java.util.Random;
 
 
 
-public class QuickSortTester {
+public class SortTester {
+	
+	/**
+	 * Here, you can change which sort to use. Fairly simple right now...
+	 * @param list - the list to be sorted
+	 */
+	private static void sort(int[] list){
+		//QuickSort.sort(list);
+		MergeSort.sort(list);
+	}
 
 	public static void main(String[] args){
 		Random rand = new Random();
@@ -12,7 +21,7 @@ public class QuickSortTester {
 			testList[i] = rand.nextInt(10);
 		}
 		System.out.println(arrayString(testList));
-		QuickSort.sort(testList);
+		sort(testList);
 		System.out.println(arrayString(testList));
 	}
 	
