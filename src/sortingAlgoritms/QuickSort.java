@@ -13,7 +13,7 @@ public class QuickSort {
 	
 	private static void quickSort(int[] list, int start, int end){
 		if(start < end){
-			swap(list, (start+end)/2, end); //Move pivotPosition to last place
+			//swap(list, (start+end)/2, end); //Move pivotPosition to last place
 			int pivotPosition = end; //Set pivotposition to last place in sublist
 			for(int i=start; i<=end; i++){
 				if(i >= pivotPosition){
