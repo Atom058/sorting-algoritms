@@ -3,6 +3,8 @@ package sortingAlgoritms;
 import java.util.Arrays;
 import java.util.Random;
 
+import QuickSortParallell.QuickSortParallellization;
+
 public class SortTester {
 
 	private static Random rand;

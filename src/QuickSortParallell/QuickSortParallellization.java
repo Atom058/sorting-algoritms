@@ -1,6 +1,7 @@
-package sortingAlgoritms;
+package QuickSortParallell;
 
 import java.util.concurrent.Semaphore;
+
 
 public class QuickSortParallellization {
 	
@@ -11,7 +12,7 @@ public class QuickSortParallellization {
 			try{
 				Semaphore semaphore = new Semaphore(1);
 				ThreadCounter tc = new ThreadCounter(semaphore);
-				(new Thread((new QuickSortThreadTask(tc, list, 0, list.length-1)))).run();
+				(new Thread((new QuickSortSortTask(tc, list, 0, list.length-1)))).run();
 				/*
 				 * The semaphore will cause the thread to sleep until 
 				 * 	all sorting threads are finished.

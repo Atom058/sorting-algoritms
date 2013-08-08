@@ -1,12 +1,13 @@
-package sortingAlgoritms;
+package QuickSortParallell;
 
-public class QuickSortThreadTask implements Runnable{
+
+public class QuickSortSortTask implements Runnable{
 
 	int[] list; 
 	int start, end;
 	ThreadCounter tc;
 
-	public QuickSortThreadTask(ThreadCounter tc, int[] list, int start, int end){
+	public QuickSortSortTask(ThreadCounter tc, int[] list, int start, int end){
 		this.list = list;
 		this.start = start;
 		this.end = end;
@@ -44,8 +45,8 @@ public class QuickSortThreadTask implements Runnable{
 					pivotPosition --;
 				}
 			}
-			(new Thread(new QuickSortThreadTask(tc, list, start, pivotPosition-1))).run();
-			(new Thread(new QuickSortThreadTask(tc, list, pivotPosition + 1, end))).run();
+			(new Thread(new QuickSortSortTask(tc, list, start, pivotPosition-1))).run();
+			(new Thread(new QuickSortSortTask(tc, list, pivotPosition + 1, end))).run();
 		}
 		tc.remove();
 	}
