@@ -1,27 +1,17 @@
 package QuickSortParallell;
 
-import java.util.concurrent.Semaphore;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class QuickSortParallellization {
-	
+
 	public static int[] sort(int[] list){
 		if(list == null || list.length == 0){
 			return list;
 		} else{
-			try{
-				Semaphore semaphore = new Semaphore(1);
-				ThreadCounter tc = new ThreadCounter(semaphore);
-				(new Thread((new QuickSortSortTask(tc, list, 0, list.length-1)))).run();
-				/*
-				 * The semaphore will cause the thread to sleep until 
-				 * 	all sorting threads are finished.
-				 */
-				semaphore.acquire();
-
-			}catch(InterruptedException e){
-				System.out.println("Thread interupted, sorting failed");
-			}
+			ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+			threadPool.submit(new QuickSortTask(threadPool, list, 0, list.length-1));
+			
 			return list;
 		}
 	}

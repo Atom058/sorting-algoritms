@@ -1,18 +1,19 @@
 package QuickSortParallell;
 
+import java.util.concurrent.ExecutorService;
 
-public class QuickSortSortTask implements Runnable{
+
+public class QuickSortTask implements Runnable{
 
 	int[] list; 
 	int start, end;
-	ThreadCounter tc;
+	ExecutorService threadPool;
 
-	public QuickSortSortTask(ThreadCounter tc, int[] list, int start, int end){
+	public QuickSortTask(ExecutorService threadPool, int[] list, int start, int end){
 		this.list = list;
 		this.start = start;
 		this.end = end;
-		this.tc = tc;
-		tc.add();
+		this.threadPool = threadPool;
 	}
 
 	@Override
@@ -45,10 +46,9 @@ public class QuickSortSortTask implements Runnable{
 					pivotPosition --;
 				}
 			}
-			(new Thread(new QuickSortSortTask(tc, list, start, pivotPosition-1))).run();
-			(new Thread(new QuickSortSortTask(tc, list, pivotPosition + 1, end))).run();
+			threadPool.submit(new QuickSortTask(threadPool, list, start, pivotPosition-1));
+			threadPool.submit(new QuickSortTask(threadPool, list, pivotPosition + 1, end));
 		}
-		tc.remove();
 	}
 	
 	private static void swap(int[] list, int s1, int s2){
