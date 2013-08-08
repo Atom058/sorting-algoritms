@@ -10,12 +10,12 @@ public class SortTester {
 	public static void main(String[] args) {
 		rand = new Random();
 
-		generateTest(10);
-		generateTest(100);
-		generateTest(1000);
 		generateTest(10000);
-		generateTest(100000);
-		generateTest(1000000);
+//		generateTest(100);
+//		generateTest(1000);
+//		generateTest(10000);
+//		generateTest(100000);
+//		generateTest(1000000);
 	}
 
 	private static void generateTest(int length) {
@@ -63,6 +63,18 @@ public class SortTester {
 		} else {
 			System.out.println("Duration: " + time);
 		}
+		
+		System.out.print("Quick sort threaded: ");
+		testList = Arrays.copyOf(list, list.length);
+		time = System.currentTimeMillis();
+		QuickSortParallellization.sort(testList);
+		time = System.currentTimeMillis() - time;
+		if (!equalLists(testList, sortedList)) {
+			System.out.println("Sorted list not correct");
+		} else {
+			System.out.println("Duration: " + time);
+		}
+		
 	}
 
 	private static int[] generateList(int length) {
